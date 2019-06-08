@@ -6,22 +6,28 @@
 </template>
 <script>
  import HeaderBar from 'components/header-bar/header-bar'
- import {getSeller} from 'api'
+ import {getSeller} from 'api/index'
  export default {
-   name:'app',
+  name:'app',
    data(){
      return{
        seller:{}
      }
    },
-   components: {
+  created(){
+     this._getSeller();
+   },
+  components: {
      HeaderBar
    },
-   created(){
-     getSeller().then((seller)=>{
+  methods: {
+     _getSeller(){
+      getSeller().then((seller)=>{
        this.seller=seller
      })
+     }
    }
+ 
  }
 </script>
 

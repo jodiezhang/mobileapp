@@ -14,7 +14,7 @@
      },
      computed: {
          iconCls(){
-             const classMap=['decrease','discount','special','guarantee']
+             const classMap=['decrease','discount','special','invoice','guarantee']
              return `icon-${this.size} ${classMap[this.type]}`
          }
      }

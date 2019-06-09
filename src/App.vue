@@ -1,11 +1,12 @@
 <template>
   <div id="app">
     <headerBar :seller="seller"></headerBar>
-
+    <tab></tab>
   </div>
 </template>
 <script>
  import HeaderBar from 'components/header-bar/header-bar'
+ import Tab from 'components/tab/tab'
  import {getSeller} from 'api/index'
  export default {
   name:'app',
@@ -18,7 +19,8 @@
      this._getSeller();
    },
   components: {
-     HeaderBar
+     HeaderBar,
+     Tab
    },
   methods: {
      _getSeller(){

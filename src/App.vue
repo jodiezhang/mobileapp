@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <headerBar :seller="seller"></headerBar>
+    <div class='tab-wrapper'>
     <tab></tab>
+    </div>
   </div>
 </template>
 <script>
@@ -35,5 +37,11 @@
 
 
 <style lang="stylus">
+   .tab-wrapper
+     position:fixed
+     top:136px
+     left:0
+     right:0
+     bottom:0
 
 </style>

@@ -116,6 +116,9 @@
                        this.goods=goods
                    })
                }
+           },
+           onAdd(el){
+               this.$refs.shopCart.drop(el)
            }
        },
         components: {

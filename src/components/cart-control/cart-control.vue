@@ -26,6 +26,7 @@ export default {
             } else {
                 this.food.count++
             }
+            this.$emit(EVENT_ADD,event.target) //派发事件，并且把触发事件的按钮的DOM派发出去
         },
         decrease(){
            if(this.food.count){

@@ -35,12 +35,20 @@
                    </ul>    
                 </cube-scroll-nav-panel>   
             </cube-scroll-nav>    
-        </div>    
+        </div> 
+        <div class="shop-cart-wrapper">
+         <shop-cart
+        ref="shopCart"
+        :select-foods="selectFoods"
+        :delivery-price="seller.deliveryPrice"
+        :min-price="seller.minPrice"></shop-cart>
+    </div>   
     </div>
 </template>
 <script>
     import { getGoods } from 'api'
     import SupportIco from 'components/support-ico/support-ico'
+    import ShopCart from 'components/shop-cart/shop-cart'
     export default {
         name: 'goods',
         props: {
@@ -64,6 +72,17 @@
            seller() {
                return this.data.seller
            },
+           selectFoods() {
+               let foods = []
+               this.goods.forEach((good) => {
+               good.foods.forEach((food) => {
+               if (food.count) {
+                    foods.push(food)
+               }
+          })
+        })
+        return foods
+      },
            barTxts(){
                let ret=[]
                this.goods.forEach((good) =>{
@@ -92,13 +111,19 @@
                    })
                }
            }
-       }
+       },
+        components: {
+          
+          SupportIco,
+          ShopCart
+    }
 
     }
 </script>
 <style lang="stylus" scoped>
 @import "~common/stylus/mixin"
 @import "~common/stylus/variable"
+
 .goods
    position:relative
    text-align:left
@@ -131,7 +156,10 @@
       .support-ico
         display:inline-block
         vertical-align:top
-        margin-right:4px         
+        margin-right:4px
+   >>> .cube-scroll-nav-bar-item_active
+      background: $color-white
+      color: $color-dark-grey              
    >>> .cube-scroll-nav-panel-title
       padding-left: 14px 
       height:26px
@@ -145,6 +173,9 @@
       margin:18px
       padding-bottom:18px
       position:relative
+      &:last-child
+        border-none()
+        margin-bottom: 0
       .icon
         flex:0 0 57px
         margin-right: 10px
@@ -179,8 +210,18 @@
              text-decoration:line-through
              font-size:$fontsize-small-s
              color:$color-light-grey
-                         
+        .cart-control-wrapper
+        position: absolute
+        right: 0
+        bottom: 12px     
+.shop-cart-wrapper//层次很重要 缩进很重要
+            position: absolute
+            left: 0
+            bottom: 0
+            z-index: 50
+            width: 100%
+            height: 48px
+                       
                
-      
 
 </style>

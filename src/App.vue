@@ -2,7 +2,7 @@
   <div id="app">
     <headerBar :seller="seller"></headerBar>
     <div class='tab-wrapper'>
-    <tab :tabs="tabs" :initialIndex=1></tab>
+    <tab :tabs="tabs" :initialIndex=0></tab>
     </div>
   </div>
 </template>

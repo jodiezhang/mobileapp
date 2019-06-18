@@ -18,8 +18,7 @@
                     ref="slide">
             <cube-slide-item v-for="(tab,index) in tabs" :key="index">
                 <component ref="component" :is="tab.component" :data="tab.data"></component>
-            </cube-slide-item>
-            
+            </cube-slide-item>   
         </cube-slide>
     </div>    
 </div>    
@@ -32,7 +31,7 @@ export default {
         tabs: {
             type: Array,
             default(){
-                return {}
+                return []
             }
         },
         initialIndex:{
@@ -50,18 +49,21 @@ export default {
       }
     }
   },
+  mounted(){
+      this.onChange(this.index);
+  },
   methods: {
       onChange(currentIndex) {
         this.index = currentIndex
+        const component=this.$refs.component[currentIndex];
+        component.fetch && component.fetch();
       },
       onScroll(pos) {
-  
         const tabBarWidth = this.$refs.tabBar.$el.clientWidth
         const slideWidth = this.$refs.slide.slide.scrollerWidth
         const transform = -pos.x / slideWidth * tabBarWidth
         this.$refs.tabBar.setSliderTransform(transform)
       }
- 
   },
   computed: {
       selectedLabel: {
@@ -73,7 +75,6 @@ export default {
                   return value.label === newVal
               })
           }
-          
           }
       }
   }
@@ -89,7 +90,4 @@ export default {
    .slide-wrapper
      flex:1
      overflow: hidden  
-     
-  
-
 </style>

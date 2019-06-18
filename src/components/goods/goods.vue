@@ -29,7 +29,10 @@
                                <div class="price">
                                    <span class="now">￥{{food.price}}</span>
                                    <span class="old" v-show="food.oldPrice">￥{{food.oldPrice}}</span>
-                               </div>         
+                               </div>   
+                               <div class="cart-control-wrapper">
+                                    <cart-control @add="onAdd" :food="food"></cart-control>
+                            </div>      
                         </div>       
                        </li>    
                    </ul>    
@@ -49,6 +52,9 @@
     import { getGoods } from 'api'
     import SupportIco from 'components/support-ico/support-ico'
     import ShopCart from 'components/shop-cart/shop-cart'
+    import CartControl from 'components/cart-control/cart-control'
+    import Bubble from 'components/bubble/bubble'
+ 
     export default {
         name: 'goods',
         props: {
@@ -113,9 +119,10 @@
            }
        },
         components: {
-          
+          Bubble,
           SupportIco,
-          ShopCart
+          ShopCart,
+          CartControl
     }
 
     }

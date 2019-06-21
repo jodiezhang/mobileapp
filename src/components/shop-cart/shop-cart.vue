@@ -10,7 +10,6 @@
             <div class="num" v-show="totalCount>0">
                 <bubble :num="totalCount"></bubble>
             </div>    
-            
           </div>
           <div class="price" :class="{'highlight':totalPrice>0}">￥{{totalPrice}}</div>
           <div class="desc">另需配送费￥{{deliveryPrice}}元</div>
@@ -178,6 +177,11 @@ export default {
         this.shopCartListComp=this.shopCartListComp||this.$createShopCartList({
           $props:{
             selectFoods:'selectFoods'
+          },
+          $events: {
+            hide:()=>{
+              this.listFold=true
+            }
           }
         })
         this.shopCartListComp.show()

@@ -33,9 +33,10 @@
 </template>
 <script>
 import CartControl from 'components/cart-control/cart-control'
-import popupMixin from 'common/mixins/popup'
+//import popupMixin from 'common/mixins/popup'
 
 const EVENT_SHOW='show'
+const EVENT_HIDE='hide'
 const EVENT_ADD='add'
 const EVENT_LEAVE='leave'
 

@@ -1,7 +1,7 @@
 <template>
  <div>
      <div class="shopcart">
-        <div class="content" >
+        <div class="content" @click="toggleList">
         <div class="content-left">
           <div class="logo-wrapper">
             <div class="logo" :class="{'highlight':totalCount>0}">
@@ -121,6 +121,7 @@ export default {
     },
     created(){
       this.dropBalls = []
+      this.listFold=true
     },
     methods:{
       drop(el){
@@ -161,6 +162,29 @@ export default {
           el.style.display = 'none'
         }
       },
+      toggleList(){
+        if(this.listFold){
+          if(!this.totalCount){
+            return
+          }
+          this.listFold=false
+          this._showShopCartList()
+        } else {
+          this.listFold=true
+          this._hideShopCartList()
+        }
+      },
+      _showShopCartList(){
+        this.shopCartListComp=this.shopCartListComp||this.$createShopCartList({
+          $props:{
+            selectFoods:'selectFoods'
+          }
+        })
+        this.shopCartListComp.show()
+      },
+      _hideShopCartList(){
+         this.shopCartListComp.hide()
+      } 
     }
 }
 </script>

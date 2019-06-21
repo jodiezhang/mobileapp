@@ -7,7 +7,8 @@
   position="bottom"
   type="shop-cart-list"
   :z-index=90>
-  <transition name="move">
+  <transition name="move"
+              @after-leave="onLeave">
     <div v-show="visible">
         <div class="list-header">
             <h1 class="title">购物车</h1>
@@ -65,10 +66,13 @@ export default {
            this.$emit(EVENT_SHOW)
         },
         hide() {
-            console.log('in')
+            
             this.visible = false
             this.$emit(EVENT_HIDE)
-    }
+        },
+        onLeave(){
+          this.$emit(EVENT_LEAVE)
+        }
     },
     components:{
         CartControl

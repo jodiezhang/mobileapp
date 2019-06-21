@@ -83,14 +83,7 @@ export default {
         type: Boolean,
         default: true
       },
-      list:{
-        type:Object,
-        default(){
-          return {}
-      }
-       
-        
-    }},
+     },
     computed: {
         totalPrice(){
             let total=0
@@ -167,18 +160,17 @@ export default {
           el.style.display = 'none'
         }
       },
-      toggleList(){
-        console.log(this.listFold)
-        if(this.listFold){
-          if(!this.totalCount){
+        toggleList() {
+          console.log(this.listFold)
+        if (this.listFold) {
+          if (!this.totalCount) {
             return
           }
-          this.listFold=false
+          this.listFold = false
           this._showShopCartList()
           this._showShopCartSticky()
         } else {
-          this.listFold=true
-          console.log('in1');
+          this.listFold = true
           this._hideShopCartList()
         }
       },
@@ -190,18 +182,21 @@ export default {
           $events: {
             hide:()=>{
               this.listFold=true
-              
+            },
+            leave:()=>{
+              this._hideShopCartSticky()
             }
           }
         })
         this.shopCartListComp.show()
       },
-      _hideShopCartList(){
+       _hideShopCartList() {
         const list = this.sticky ? this.$parent.list : this.shopCartListComp
         list.hide && list.hide()
-      } ,
+      },
       _hideShopCartSticky(){
-        this.shopCartListComp.hide()
+        //this.shopCartListComp.hide()
+         this.shopCartStickyComp.hide()
       } ,
       _showShopCartSticky(){
         this.shopCartStickyComp=this.shopCartStickyComp||
@@ -216,6 +211,12 @@ export default {
         })
         this.shopCartStickyComp.show()
       }
+    },
+    watch: {
+      fold(newVal) {
+        this.listFold = newVal
+      },
+      
     },
 }
 </script>

@@ -56,7 +56,8 @@ export default {
     },
     data(){
       return {
-        balls:createBalls()
+        balls:createBalls(),
+        listFold:this.fold
       }
     },
     props: {
@@ -81,10 +82,15 @@ export default {
       fold: {
         type: Boolean,
         default: true
+      },
+      list:{
+        type:Object,
+        default(){
+          return {}
       }
        
         
-    },
+    }},
     computed: {
         totalPrice(){
             let total=0
@@ -120,7 +126,7 @@ export default {
     },
     created(){
       this.dropBalls = []
-      this.listFold=true
+     // this.listFold=true
     },
     methods:{
       drop(el){
@@ -162,14 +168,17 @@ export default {
         }
       },
       toggleList(){
+        console.log(this.listFold)
         if(this.listFold){
           if(!this.totalCount){
             return
           }
           this.listFold=false
           this._showShopCartList()
+          this._showShopCartSticky()
         } else {
           this.listFold=true
+          console.log('in1');
           this._hideShopCartList()
         }
       },
@@ -181,15 +190,33 @@ export default {
           $events: {
             hide:()=>{
               this.listFold=true
+              
             }
           }
         })
         this.shopCartListComp.show()
       },
       _hideShopCartList(){
-         this.shopCartListComp.hide()
-      } 
-    }
+        const list = this.sticky ? this.$parent.list : this.shopCartListComp
+        list.hide && list.hide()
+      } ,
+      _hideShopCartSticky(){
+        this.shopCartListComp.hide()
+      } ,
+      _showShopCartSticky(){
+        this.shopCartStickyComp=this.shopCartStickyComp||
+        this.$createShopCartSticky({
+          $props:{
+            selectFoods:'selectFoods',
+            deliveryPrice:'deliveryPrice',
+            minPrice:'minPrice',
+            fold:'listFold',
+            list:this.shopCartListComp
+          }
+        })
+        this.shopCartStickyComp.show()
+      }
+    },
 }
 </script>
 <style lang="stylus" scoped>

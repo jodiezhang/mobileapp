@@ -65,6 +65,7 @@ export default {
            this.$emit(EVENT_SHOW)
         },
         hide() {
+            console.log('in')
             this.visible = false
             this.$emit(EVENT_HIDE)
     }

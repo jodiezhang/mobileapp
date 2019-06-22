@@ -219,6 +219,11 @@ export default {
       fold(newVal) {
         this.listFold = newVal
       },
+      totalCount(newVal) {
+        if(!this.listFold && !newVal){
+          this._hideShopCartList()
+        }
+      }
       
     },
 }

@@ -12,7 +12,7 @@
     <div v-show="visible">
         <div class="list-header">
             <h1 class="title">购物车</h1>
-            <span class="empty" >清空</span>
+            <span class="empty" @click='empty'>清空</span>
         </div> 
         <cube-scroll class="list-content" ref="listContent">
             <ul>
@@ -78,7 +78,22 @@ export default {
         },
         onAdd(target){
           this.$emit(EVENT_ADD,target)
-        }
+        },
+          empty() {
+        this.dialogComp = this.$createDialog({
+          type: 'confirm',
+          content: '清空购物车？',
+          $events: {
+            confirm: () => {
+              this.selectFoods.forEach((food) => {
+                food.count = 0
+              })
+              this.hide()
+            }
+          }
+        })
+        this.dialogComp.show()
+      }
     },
     components:{
         CartControl

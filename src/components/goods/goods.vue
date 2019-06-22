@@ -67,7 +67,7 @@
         :delivery-price="seller.deliveryPrice"
         :min-price="seller.minPrice"></shop-cart>
     </div>  
-    <food :food="selectedFood" ref="food"></food> 
+    <!-- <food :food="selectedFood" ref="food"></food>  -->
     </div>
 </template>
 <script>
@@ -134,7 +134,8 @@
        methods:{
            selectFood(food){
                this.selectedFood=food
-               this.$refs.food.show()
+               this._showFood()
+               this._showShopCartSticky()
            },
            fetch() {
                if(!this.fetched){
@@ -148,7 +149,41 @@
            },
            onAdd(el){
                this.$refs.shopCart.drop(el)
-           }
+           },
+           _showFood(){
+               this.foodComp=this.foodComp || this.$createFood({
+                   $props:{
+                       food:'selectedFood'
+                   },
+                   $events:{
+                       leave: ()=>{
+                           this._hideShopCartList()
+                       },
+                       add: (el)=>{
+                           this.shopCartStickyComp.drop(el)
+                       }
+                   }
+               })
+               this.foodComp.show()
+           },
+           _hideShopCartList(){
+               this.shopCartStickyComp.hide()
+           },
+            _showShopCartSticky(){
+               this.shopCartStickyComp=this.shopCartStickyComp||
+                           this.$createShopCartSticky({
+           $props:{
+            selectFoods:'selectFoods',
+            deliveryPrice:this.seller.deliveryPrice,
+            minPrice:this.seller.minPrice,
+            fold:true,
+            list:this.shopCartListComp
+          }
+        })
+         this.shopCartStickyComp.show()
+            }
+     
+       
        },
         components: {
           Bubble,

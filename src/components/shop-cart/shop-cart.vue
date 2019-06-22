@@ -14,7 +14,7 @@
           <div class="price" :class="{'highlight':totalPrice>0}">￥{{totalPrice}}</div>
           <div class="desc">另需配送费￥{{deliveryPrice}}元</div>
         </div>
-        <div class="content-right" >
+        <div @click="pay" class="content-right" >
           <div class="pay" :class="payClass">
             {{payDesc}}
           </div>
@@ -159,6 +159,18 @@ export default {
           ball.show = false
           el.style.display = 'none'
         }
+      },
+      pay(e){
+          if(this.totalPrice<this.minPrice){
+            return
+          }
+          this.dialogComp=this.$createDialog({
+            title:'支付',
+            content:`支付${this.totalPrice}元`
+          })//这里不可以缓存component 因为这里的title不是响应式的
+          this.dialogComp.show()
+          e.stopPropagation()
+          
       },
         toggleList() {
           console.log(this.listFold)

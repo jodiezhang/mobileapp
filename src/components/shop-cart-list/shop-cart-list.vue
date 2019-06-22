@@ -36,7 +36,7 @@
 </template>
 <script>
 import CartControl from 'components/cart-control/cart-control'
-//import popupMixin from 'common/mixins/popup'
+import popupMixin from 'common/mixins/popup'
 
 const EVENT_SHOW='show'
 const EVENT_HIDE='hide'
@@ -45,7 +45,7 @@ const EVENT_LEAVE='leave'
 
 export default {
     name: 'shop-cart-list',
-    //mixins:[popupMixin],
+    mixins:[popupMixin],
     props: {
         selectFoods: {
             type:Array,
@@ -54,25 +54,30 @@ export default {
             }
         }
     },
-    data(){
-        return {
-            visible:false
-        }
+    // data(){
+    //     return {
+    //         visible:false
+    //     }
+    // },
+    created(){
+      this.$on(EVENT_SHOW,()=>{
+         this.$nextTick(()=>{this.$refs.listContent.refresh()})
+      })
     },
     methods: {
         maskClick(){
             this.hide()
         },
-        show() {
-            this.visible = true
-            this.$nextTick(()=>{this.$refs.listContent.refresh()})
-           this.$emit(EVENT_SHOW)
-        },
-        hide() {
+        // show() {
+        //     this.visible = true
+        //     this.$nextTick(()=>{this.$refs.listContent.refresh()})
+        //    this.$emit(EVENT_SHOW)
+        // },
+        // hide() {
             
-            this.visible = false
-            this.$emit(EVENT_HIDE)
-        },
+        //     this.visible = false
+        //     this.$emit(EVENT_HIDE)
+        // },
         onLeave(){
           this.$emit(EVENT_LEAVE)
         },

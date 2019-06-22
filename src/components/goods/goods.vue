@@ -130,7 +130,7 @@
        }, 
        methods:{
            fetch() {
-               if(this.fetched=true){
+               if(!this.fetched){
                    this.fetched=true
                    getGoods({
                        id:this.seller.id

@@ -39,10 +39,11 @@
 //import popupMixin from 'common/mixins/popup'
 import Star from 'components/star/star'
 import SupportIco from 'components/support-ico/support-ico'
+import popupMixin from 'common/mixins/popup'
 
 export default {
     name: 'header-detail',
-   // mixins:[popupMixin],
+    mixins:[popupMixin],
     props: {
         seller: {
             type:Object,
@@ -57,12 +58,12 @@ export default {
       }
     },
     methods: {
-      show() {
-        this.visible = true
-      },
-       hide() {
-        this.visible = false
-      }
+      // show() {
+      //   this.visible = true
+      // },
+      //  hide() {
+      //   this.visible = false
+      // }
     },
     components: {
         SupportIco,

@@ -65,6 +65,7 @@ export default {
         },
         show() {
             this.visible = true
+            this.$nextTick(()=>{this.$refs.listContent.refresh()})
            this.$emit(EVENT_SHOW)
         },
         hide() {

@@ -185,6 +185,9 @@ export default {
             },
             leave:()=>{
               this._hideShopCartSticky()
+            },
+            add: (el)=>{
+              this.shopCartStickyComp.drop(el)
             }
           }
         })

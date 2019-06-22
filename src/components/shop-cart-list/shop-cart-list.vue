@@ -22,8 +22,10 @@
                     <span class="name">{{food.name}}</span>
                     <div class="price">
                         <span>￥{{food.price*food.count}}</span>
-                    </div> 
-                        
+                    </div>
+                    <div class="cart-control-wrapper">
+                        <cart-control @add="onAdd" :food="food"></cart-control>
+                    </div>       
                 </li>
             </ul>    
         </cube-scroll>      
@@ -72,6 +74,9 @@ export default {
         },
         onLeave(){
           this.$emit(EVENT_LEAVE)
+        },
+        onAdd(target){
+          this.$emit(EVENT_ADD,target)
         }
     },
     components:{

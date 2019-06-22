@@ -66,7 +66,8 @@
         :select-foods="selectFoods"
         :delivery-price="seller.deliveryPrice"
         :min-price="seller.minPrice"></shop-cart>
-    </div>   
+    </div>  
+    <food :food="selectedFood" ref="food"></food> 
     </div>
 </template>
 <script>
@@ -75,6 +76,7 @@
     import ShopCart from 'components/shop-cart/shop-cart'
     import CartControl from 'components/cart-control/cart-control'
     import Bubble from 'components/bubble/bubble'
+    import Food from 'components/food/food'
  
     export default {
         name: 'goods',
@@ -89,6 +91,7 @@
         data(){
             return {
                 goods: [],
+                selectedFood:{},
                 scrollOptions: {
                         click: false,
                         directionLockThreshold: 0
@@ -129,6 +132,10 @@
            }
        }, 
        methods:{
+           selectFood(food){
+               this.selectedFood=food
+               this.$refs.food.show()
+           },
            fetch() {
                if(!this.fetched){
                    this.fetched=true
@@ -147,7 +154,8 @@
           Bubble,
           SupportIco,
           ShopCart,
-          CartControl
+          CartControl,
+          Food
     }
 
     }

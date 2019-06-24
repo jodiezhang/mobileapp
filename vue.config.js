@@ -35,9 +35,10 @@ module.exports = {
     //  https://webpack.js.org/configuration/dev-server/
     before(app) {
       app.get('/api/seller', (req, res) => {
+        const id=req.query.id
         res.json({
           errno: 0,
-          data: seller,
+          data: Object.assign({},seller,{id}),
         });
       });
 
@@ -48,7 +49,7 @@ module.exports = {
         });
       });
 
-      app.get('/api/rating', (req, res) => {
+      app.get('/api/ratings', (req, res) => {
         res.json({
           errno: 0,
           data: ratings,
